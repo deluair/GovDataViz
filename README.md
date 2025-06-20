@@ -12,7 +12,8 @@ This platform provides real-time access to critical economic and demographic dat
 - **Bureau of Labor Statistics (BLS)**: Unemployment rates, Consumer Price Index (CPI), employment data
 - **Federal Reserve Economic Data (FRED)**: GDP, interest rates, economic indicators
 - **U.S. Census Bureau**: Population demographics, housing data, economic census
-- **Future-ready**: Treasury Department and Energy Information Administration (EIA) integration prepared
+- **Energy Information Administration (EIA)**: Electricity generation, renewable energy, natural gas prices
+- **National Oceanic and Atmospheric Administration (NOAA)**: Temperature, precipitation, climate data
 
 ### 🚀 Core Capabilities
 - **Real-time Data**: Live government API integration with authenticated access
@@ -81,6 +82,8 @@ Create a `.env` file in the root directory:
 FRED_API_KEY=your_fred_api_key_here
 BLS_API_KEY=your_bls_api_key_here
 CENSUS_API_KEY=your_census_api_key_here
+EIA_API_KEY=your_eia_api_key_here
+NOAA_API_TOKEN=your_noaa_api_token_here
 
 # Server Configuration
 PORT=3001
@@ -161,6 +164,16 @@ data_visualization_gov/
 ### Census Bureau
 - `GET /api/census/population` - Population by state
 - `GET /api/census/demographics` - Demographic data
+
+### EIA (Energy Information Administration)
+- `GET /api/eia/electricity` - Electricity generation data
+- `GET /api/eia/renewable` - Renewable energy data
+- `GET /api/eia/gas-prices` - Natural gas prices
+
+### NOAA (National Oceanic and Atmospheric Administration)
+- `GET /api/noaa/temperature` - Temperature data
+- `GET /api/noaa/precipitation` - Precipitation data
+- `GET /api/noaa/extremes` - Climate extremes
 
 ### Utility Endpoints
 - `GET /health` - Health check
@@ -290,6 +303,7 @@ npm start
 
 ## 🏷️ Version History
 
+- **v1.1.0** - Enhanced with EIA and NOAA data sources (5 government APIs)
 - **v1.0.0** - Initial release with BLS, FRED, and Census integration
 - Real-time government data visualization
 - Professional UI with interactive charts
