@@ -1,0 +1,23 @@
+# Copy this content to a .env file in the root directory
+
+# Server Configuration
+NODE_ENV=development
+PORT=3001
+FRONTEND_URL=http://localhost:3000
+
+# Database
+DATABASE_PATH=./data/gov_viz.db
+
+# Redis Cache (optional - will work without Redis in development)
+REDIS_URL=redis://localhost:6379
+
+# Logging
+LOG_LEVEL=info
+
+# API Keys
+BLS_API_KEY=b155c91d886645b98e0d453434f16774
+FRED_API_KEY=3a489b24c1a0898c157ed702c70c529f
+CENSUS_API_KEY=28fee764617ebe8b5d3441fcc15c5e464b46febd
+
+# Optional: EIA API key (if you want energy data)
+# EIA_API_KEY=your_eia_api_key_here 
