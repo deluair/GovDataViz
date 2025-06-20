@@ -508,5 +508,49 @@
       "seasonallyAdjusted": false
     },
     "expires": 1750451938859
+  },
+  "noaa:ocean-temp:{\"startdate\":\"2024-01-01\",\"enddate\":\"2024-06-30\",\"locationid\":\"FIPS:US\",\"limit\":100}": {
+    "value": {
+      "metadata": {
+        "resultset": {
+          "offset": 0,
+          "count": 6,
+          "limit": 100
+        }
+      },
+      "results": [
+        {
+          "date": "2024-01-01",
+          "value": 58.2,
+          "datatype": "OCEANTMP"
+        },
+        {
+          "date": "2024-02-01",
+          "value": 56.8,
+          "datatype": "OCEANTMP"
+        },
+        {
+          "date": "2024-03-01",
+          "value": 60.5,
+          "datatype": "OCEANTMP"
+        },
+        {
+          "date": "2024-04-01",
+          "value": 64.9,
+          "datatype": "OCEANTMP"
+        },
+        {
+          "date": "2024-05-01",
+          "value": 68.3,
+          "datatype": "OCEANTMP"
+        },
+        {
+          "date": "2024-06-01",
+          "value": 72.7,
+          "datatype": "OCEANTMP"
+        }
+      ]
+    },
+    "expires": 1750457487735
   }
 }

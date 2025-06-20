@@ -8,35 +8,25 @@ const noaaService = new NoaaService();
 router.get('/temperature', async (req, res) => {
   try {
     const data = await noaaService.getTemperatureData({
-      startdate: '2023-01-01',
-      enddate: '2024-12-31',
-      locationid: 'FIPS:US'
+      startdate: '2024-01-01',
+      enddate: '2024-06-30',
+      locationid: 'FIPS:US',
+      limit: 100
     });
-
-    // Group by date and calculate averages
-    const groupedData = data.results.reduce((acc: any, item) => {
-      const date = item.date.slice(0, 7); // YYYY-MM format
-      if (!acc[date]) {
-        acc[date] = { total: 0, count: 0, date };
-      }
-      acc[date].total += item.value;
-      acc[date].count += 1;
-      return acc;
-    }, {});
-
-    const avgData = Object.values(groupedData).map((item: any) => ({
-      date: item.date,
-      value: Math.round((item.total / item.count) * 10) / 10 // Round to 1 decimal
-    }));
 
     res.json({
       success: true,
-      data: avgData.slice(0, 12), // Last 12 months
+      data: data.results.map((point: any) => ({
+        date: point.date,
+        value: point.value,
+        datatype: point.datatype
+      })),
       metadata: {
         name: 'Average Temperature',
         units: 'degrees Fahrenheit',
-        description: 'Monthly average temperatures across the United States',
-        source: 'noaa'
+        description: 'Average daily temperature across the United States',
+        source: 'noaa',
+        count: data.metadata.resultset.count
       },
       timestamp: new Date().toISOString()
     });
@@ -53,35 +43,25 @@ router.get('/temperature', async (req, res) => {
 router.get('/precipitation', async (req, res) => {
   try {
     const data = await noaaService.getPrecipitationData({
-      startdate: '2023-01-01',
-      enddate: '2024-12-31',
-      locationid: 'FIPS:US'
+      startdate: '2024-01-01',
+      enddate: '2024-06-30',
+      locationid: 'FIPS:US',
+      limit: 100
     });
-
-    // Group by month and calculate totals
-    const groupedData = data.results.reduce((acc: any, item) => {
-      const date = item.date.slice(0, 7); // YYYY-MM format
-      if (!acc[date]) {
-        acc[date] = { total: 0, count: 0, date };
-      }
-      acc[date].total += item.value;
-      acc[date].count += 1;
-      return acc;
-    }, {});
-
-    const precipData = Object.values(groupedData).map((item: any) => ({
-      date: item.date,
-      value: Math.round((item.total / item.count) * 100) / 100 // Round to 2 decimals
-    }));
 
     res.json({
       success: true,
-      data: precipData.slice(0, 12), // Last 12 months
+      data: data.results.map((point: any) => ({
+        date: point.date,
+        value: point.value,
+        datatype: point.datatype
+      })),
       metadata: {
         name: 'Precipitation',
         units: 'inches',
-        description: 'Monthly precipitation totals across the United States',
-        source: 'noaa'
+        description: 'Daily precipitation totals across the United States',
+        source: 'noaa',
+        count: data.metadata.resultset.count
       },
       timestamp: new Date().toISOString()
     });
@@ -94,46 +74,211 @@ router.get('/precipitation', async (req, res) => {
   }
 });
 
-// Get climate extremes
+// Get climate extremes data
 router.get('/extremes', async (req, res) => {
   try {
     const data = await noaaService.getClimateExtremes({
-      startdate: '2023-01-01',
-      enddate: '2024-12-31',
-      locationid: 'FIPS:US'
+      startdate: '2024-01-01',
+      enddate: '2024-06-30',
+      locationid: 'FIPS:US',
+      limit: 100
     });
-
-    // Process extreme data
-    const extremesByType = data.results.reduce((acc: any, item) => {
-      if (!acc[item.datatype]) {
-        acc[item.datatype] = [];
-      }
-      acc[item.datatype].push({
-        date: item.date,
-        value: item.value
-      });
-      return acc;
-    }, {});
 
     res.json({
       success: true,
-      data: {
-        maxTemp: extremesByType.TMAX?.slice(0, 10) || [],
-        minTemp: extremesByType.TMIN?.slice(0, 10) || [],
-        precipitation: extremesByType.PRCP?.slice(0, 10) || []
-      },
+      data: data.results.map((point: any) => ({
+        date: point.date,
+        value: point.value,
+        datatype: point.datatype
+      })),
       metadata: {
         name: 'Climate Extremes',
-        units: 'various',
-        description: 'Recent climate extreme events in the United States',
-        source: 'noaa'
+        units: 'degrees Fahrenheit',
+        description: 'Maximum daily temperatures and extreme weather events',
+        source: 'noaa',
+        count: data.metadata.resultset.count
       },
       timestamp: new Date().toISOString()
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to fetch climate extreme data',
+      error: error instanceof Error ? error.message : 'Failed to fetch climate extremes data',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Get snowfall data
+router.get('/snowfall', async (req, res) => {
+  try {
+    const data = await noaaService.getSnowfallData({
+      startdate: '2024-01-01',
+      enddate: '2024-06-30',
+      locationid: 'FIPS:US',
+      limit: 100
+    });
+
+    res.json({
+      success: true,
+      data: data.results.map((point: any) => ({
+        date: point.date,
+        value: point.value,
+        datatype: point.datatype
+      })),
+      metadata: {
+        name: 'Snowfall',
+        units: 'inches',
+        description: 'Daily snowfall totals across the United States',
+        source: 'noaa',
+        count: data.metadata.resultset.count
+      },
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch snowfall data',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Get wind data
+router.get('/wind', async (req, res) => {
+  try {
+    const data = await noaaService.getWindData({
+      startdate: '2024-01-01',
+      enddate: '2024-06-30',
+      locationid: 'FIPS:US',
+      limit: 100
+    });
+
+    res.json({
+      success: true,
+      data: data.results.map((point: any) => ({
+        date: point.date,
+        value: point.value,
+        datatype: point.datatype
+      })),
+      metadata: {
+        name: 'Wind Speed',
+        units: 'miles per hour',
+        description: 'Average daily wind speed across the United States',
+        source: 'noaa',
+        count: data.metadata.resultset.count
+      },
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch wind data',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Get humidity data
+router.get('/humidity', async (req, res) => {
+  try {
+    const data = await noaaService.getHumidityData({
+      startdate: '2024-01-01',
+      enddate: '2024-06-30',
+      locationid: 'FIPS:US',
+      limit: 100
+    });
+
+    res.json({
+      success: true,
+      data: data.results.map((point: any) => ({
+        date: point.date,
+        value: point.value,
+        datatype: point.datatype
+      })),
+      metadata: {
+        name: 'Relative Humidity',
+        units: 'percent',
+        description: 'Average daily relative humidity across the United States',
+        source: 'noaa',
+        count: data.metadata.resultset.count
+      },
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch humidity data',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Get sea level data
+router.get('/sea-level', async (req, res) => {
+  try {
+    const data = await noaaService.getSeaLevelData({
+      startdate: '2024-01-01',
+      enddate: '2024-06-30',
+      locationid: 'FIPS:US',
+      limit: 100
+    });
+
+    res.json({
+      success: true,
+      data: data.results.map((point: any) => ({
+        date: point.date,
+        value: point.value,
+        datatype: point.datatype
+      })),
+      metadata: {
+        name: 'Sea Level Change',
+        units: 'millimeters',
+        description: 'Sea level rise measurements from U.S. tide gauge stations',
+        source: 'noaa',
+        count: data.metadata.resultset.count
+      },
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch sea level data',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Get ocean temperature data
+router.get('/ocean-temperature', async (req, res) => {
+  try {
+    const data = await noaaService.getOceanTemperatureData({
+      startdate: '2024-01-01',
+      enddate: '2024-06-30',
+      locationid: 'FIPS:US',
+      limit: 100
+    });
+
+    res.json({
+      success: true,
+      data: data.results.map((point: any) => ({
+        date: point.date,
+        value: point.value,
+        datatype: point.datatype
+      })),
+      metadata: {
+        name: 'Ocean Temperature',
+        units: 'degrees Fahrenheit',
+        description: 'Ocean surface temperature measurements from U.S. coastal waters',
+        source: 'noaa',
+        count: data.metadata.resultset.count
+      },
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch ocean temperature data',
       timestamp: new Date().toISOString()
     });
   }

@@ -241,6 +241,106 @@ export const eiaService = {
         ]
       };
     }
+  },
+
+  // Get solar energy data
+  getSolar: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/eia/solar`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching solar energy data:', error);
+      return {
+        data: [
+          { date: '2024-01', value: 8500 },
+          { date: '2024-02', value: 11200 },
+          { date: '2024-03', value: 15800 },
+          { date: '2024-04', value: 18900 },
+          { date: '2024-05', value: 22400 },
+          { date: '2024-06', value: 24100 }
+        ]
+      };
+    }
+  },
+
+  // Get wind energy data
+  getWind: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/eia/wind`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching wind energy data:', error);
+      return {
+        data: [
+          { date: '2024-01', value: 38500 },
+          { date: '2024-02', value: 35200 },
+          { date: '2024-03', value: 32800 },
+          { date: '2024-04', value: 29900 },
+          { date: '2024-05', value: 26400 },
+          { date: '2024-06', value: 25100 }
+        ]
+      };
+    }
+  },
+
+  // Get coal energy data
+  getCoal: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/eia/coal`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching coal energy data:', error);
+      return {
+        data: [
+          { date: '2024-01', value: 85500 },
+          { date: '2024-02', value: 78200 },
+          { date: '2024-03', value: 75800 },
+          { date: '2024-04', value: 69900 },
+          { date: '2024-05', value: 72400 },
+          { date: '2024-06', value: 82100 }
+        ]
+      };
+    }
+  },
+
+  // Get nuclear energy data
+  getNuclear: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/eia/nuclear`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching nuclear energy data:', error);
+      return {
+        data: [
+          { date: '2024-01', value: 67500 },
+          { date: '2024-02', value: 71200 },
+          { date: '2024-03', value: 69800 },
+          { date: '2024-04', value: 65900 },
+          { date: '2024-05', value: 68400 },
+          { date: '2024-06', value: 72100 }
+        ]
+      };
+    }
+  },
+
+  // Get petroleum prices
+  getPetroleum: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/eia/petroleum`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching petroleum prices:', error);
+      return {
+        data: [
+          { date: '2024-01', value: 78.50 },
+          { date: '2024-02', value: 82.30 },
+          { date: '2024-03', value: 75.80 },
+          { date: '2024-04', value: 79.60 },
+          { date: '2024-05', value: 81.20 },
+          { date: '2024-06', value: 77.90 }
+        ]
+      };
+    }
   }
 };
 
@@ -293,6 +393,106 @@ export const noaaService = {
           { date: '2023-10', value: 2.6 },
           { date: '2023-11', value: 2.3 },
           { date: '2023-12', value: 2.0 },
+        ]
+      };
+    }
+  },
+
+  // Get snowfall data
+  getSnowfall: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/noaa/snowfall`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching snowfall data:', error);
+      return {
+        data: [
+          { date: '2024-01-01', value: 12.5 },
+          { date: '2024-02-01', value: 8.3 },
+          { date: '2024-03-01', value: 3.2 },
+          { date: '2024-04-01', value: 0.1 },
+          { date: '2024-05-01', value: 0.0 },
+          { date: '2024-06-01', value: 0.0 }
+        ]
+      };
+    }
+  },
+
+  // Get wind data
+  getWind: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/noaa/wind`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching wind data:', error);
+      return {
+        data: [
+          { date: '2024-01-01', value: 8.5 },
+          { date: '2024-02-01', value: 9.2 },
+          { date: '2024-03-01', value: 10.8 },
+          { date: '2024-04-01', value: 9.6 },
+          { date: '2024-05-01', value: 8.3 },
+          { date: '2024-06-01', value: 7.9 }
+        ]
+      };
+    }
+  },
+
+  // Get humidity data
+  getHumidity: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/noaa/humidity`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching humidity data:', error);
+      return {
+        data: [
+          { date: '2024-01-01', value: 65.2 },
+          { date: '2024-02-01', value: 58.8 },
+          { date: '2024-03-01', value: 62.5 },
+          { date: '2024-04-01', value: 68.9 },
+          { date: '2024-05-01', value: 72.3 },
+          { date: '2024-06-01', value: 78.7 }
+        ]
+      };
+    }
+  },
+
+  // Get sea level data
+  getSeaLevel: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/noaa/sea-level`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching sea level data:', error);
+      return {
+        data: [
+          { date: '2024-01-01', value: 3.2 },
+          { date: '2024-02-01', value: 3.3 },
+          { date: '2024-03-01', value: 3.4 },
+          { date: '2024-04-01', value: 3.5 },
+          { date: '2024-05-01', value: 3.6 },
+          { date: '2024-06-01', value: 3.7 }
+        ]
+      };
+    }
+  },
+
+  // Get ocean temperature data
+  getOceanTemperature: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/noaa/ocean-temperature`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching ocean temperature data:', error);
+      return {
+        data: [
+          { date: '2024-01-01', value: 58.2 },
+          { date: '2024-02-01', value: 56.8 },
+          { date: '2024-03-01', value: 60.5 },
+          { date: '2024-04-01', value: 64.9 },
+          { date: '2024-05-01', value: 68.3 },
+          { date: '2024-06-01', value: 72.7 }
         ]
       };
     }

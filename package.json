@@ -1,7 +1,7 @@
 {
   "name": "gov-data-visualization-platform",
-  "version": "1.0.0",
-  "description": "A comprehensive platform for visualizing government API data from BLS, FRED, Census, and more",
+  "version": "1.2.0",
+  "description": "A comprehensive platform for visualizing government data from multiple agencies including BLS, FRED, Census, EIA, and NOAA",
   "private": true,
   "workspaces": [
     "frontend",
