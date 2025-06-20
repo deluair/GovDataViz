@@ -11,6 +11,8 @@ import { blsRoutes } from './routes/bls';
 import { fredRoutes } from './routes/fred';
 import { censusRoutes } from './routes/census';
 import { chartRoutes } from './routes/charts';
+import { eiaRoutes } from './routes/eia';
+import { noaaRoutes } from './routes/noaa';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -53,6 +55,8 @@ app.use('/api/bls', blsRoutes);
 app.use('/api/fred', fredRoutes);
 app.use('/api/census', censusRoutes);
 app.use('/api/charts', chartRoutes);
+app.use('/api/eia', eiaRoutes);
+app.use('/api/noaa', noaaRoutes);
 
 // Default route
 app.get('/', (req, res) => {
@@ -65,7 +69,9 @@ app.get('/', (req, res) => {
       bls: '/api/bls',
       fred: '/api/fred',
       census: '/api/census',
-      charts: '/api/charts'
+      charts: '/api/charts',
+      eia: '/api/eia',
+      noaa: '/api/noaa'
     }
   });
 });

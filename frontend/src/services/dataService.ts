@@ -163,6 +163,142 @@ export const formatBarChartData = (data: any[], label: string, color: string = '
   };
 };
 
+// EIA Data Service
+export const eiaService = {
+  // Get electricity generation data
+  getElectricityGeneration: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/eia/electricity`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching electricity data:', error);
+      return {
+        data: [
+          { date: '2023-01', value: 350000 },
+          { date: '2023-02', value: 340000 },
+          { date: '2023-03', value: 365000 },
+          { date: '2023-04', value: 355000 },
+          { date: '2023-05', value: 375000 },
+          { date: '2023-06', value: 390000 },
+          { date: '2023-07', value: 410000 },
+          { date: '2023-08', value: 405000 },
+          { date: '2023-09', value: 385000 },
+          { date: '2023-10', value: 370000 },
+          { date: '2023-11', value: 360000 },
+          { date: '2023-12', value: 375000 },
+        ]
+      };
+    }
+  },
+
+  // Get renewable energy data
+  getRenewableEnergy: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/eia/renewable`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching renewable energy data:', error);
+      return {
+        data: [
+          { date: '2023-01', value: 45000 },
+          { date: '2023-02', value: 48000 },
+          { date: '2023-03', value: 52000 },
+          { date: '2023-04', value: 55000 },
+          { date: '2023-05', value: 58000 },
+          { date: '2023-06', value: 62000 },
+          { date: '2023-07', value: 65000 },
+          { date: '2023-08', value: 63000 },
+          { date: '2023-09', value: 59000 },
+          { date: '2023-10', value: 54000 },
+          { date: '2023-11', value: 50000 },
+          { date: '2023-12', value: 47000 },
+        ]
+      };
+    }
+  },
+
+  // Get natural gas prices
+  getNaturalGasPrices: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/eia/gas-prices`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching natural gas prices:', error);
+      return {
+        data: [
+          { date: '2023-01', value: 4.2 },
+          { date: '2023-02', value: 3.8 },
+          { date: '2023-03', value: 3.5 },
+          { date: '2023-04', value: 3.1 },
+          { date: '2023-05', value: 2.9 },
+          { date: '2023-06', value: 2.7 },
+          { date: '2023-07', value: 2.8 },
+          { date: '2023-08', value: 3.0 },
+          { date: '2023-09', value: 3.2 },
+          { date: '2023-10', value: 3.6 },
+          { date: '2023-11', value: 4.0 },
+          { date: '2023-12', value: 4.3 },
+        ]
+      };
+    }
+  }
+};
+
+// NOAA Data Service
+export const noaaService = {
+  // Get temperature data
+  getTemperature: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/noaa/temperature`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching temperature data:', error);
+      return {
+        data: [
+          { date: '2023-01', value: 42.1 },
+          { date: '2023-02', value: 45.3 },
+          { date: '2023-03', value: 52.7 },
+          { date: '2023-04', value: 61.2 },
+          { date: '2023-05', value: 70.8 },
+          { date: '2023-06', value: 79.4 },
+          { date: '2023-07', value: 84.6 },
+          { date: '2023-08', value: 82.9 },
+          { date: '2023-09', value: 76.1 },
+          { date: '2023-10', value: 65.3 },
+          { date: '2023-11', value: 54.7 },
+          { date: '2023-12', value: 45.2 },
+        ]
+      };
+    }
+  },
+
+  // Get precipitation data
+  getPrecipitation: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/noaa/precipitation`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching precipitation data:', error);
+      return {
+        data: [
+          { date: '2023-01', value: 2.1 },
+          { date: '2023-02', value: 1.8 },
+          { date: '2023-03', value: 2.9 },
+          { date: '2023-04', value: 3.2 },
+          { date: '2023-05', value: 3.8 },
+          { date: '2023-06', value: 3.1 },
+          { date: '2023-07', value: 2.4 },
+          { date: '2023-08', value: 2.7 },
+          { date: '2023-09', value: 2.9 },
+          { date: '2023-10', value: 2.6 },
+          { date: '2023-11', value: 2.3 },
+          { date: '2023-12', value: 2.0 },
+        ]
+      };
+    }
+  }
+};
+
 export const formatDoughnutChartData = (data: any[], colors: string[] = [
   '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', 
   '#F97316', '#06B6D4', '#84CC16', '#EC4899', '#6B7280'
